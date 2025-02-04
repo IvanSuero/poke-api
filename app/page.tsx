@@ -76,7 +76,7 @@ export default function Page() {
     setShowBattleSimulation(true)
   }
 
-  const handleBattleSimulationComplete = (winner: 'player' | 'cpu', playerStat: number, cpuStat: number) => {
+  const handleBattleSimulationComplete = (winner: 'player' | 'cpu') => {
     setShowBattleSimulation(false)
     setBattleWinner(winner)
     if (winner === "player") setPlayerScore((prev) => prev + 1)
