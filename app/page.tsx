@@ -29,7 +29,6 @@ export default function Page() {
   const [battleWinner, setBattleWinner] = useState<"player" | "cpu" | "">("")
   const [showBattleSimulation, setShowBattleSimulation] = useState(false)
   const [isGameOver, setIsGameOver] = useState(false)
-  const [lastBattleStats, setLastBattleStats] = useState<{playerStat: number, cpuStat: number} | null>(null)
 
   async function getOpponentPokemonData() {
     const randomNumbers = Array.from({ length: 3 }, () => Math.floor(Math.random() * 1025) + 1)
@@ -45,7 +44,7 @@ export default function Page() {
       localStorage.setItem("pokemonData", JSON.stringify(data))
       await getOpponentPokemonData()
     } catch (e: any) {
-      setError("An error occurred")
+      setError("An error occurred" + e)
     }
   }
 
@@ -60,7 +59,7 @@ export default function Page() {
         }
         initializeGame()
       } catch (e) { 
-        setError("An error occurred")
+        setError("An error occurred" + e)
       }
     }
 
@@ -80,7 +79,6 @@ export default function Page() {
   const handleBattleSimulationComplete = (winner: 'player' | 'cpu', playerStat: number, cpuStat: number) => {
     setShowBattleSimulation(false)
     setBattleWinner(winner)
-    setLastBattleStats({ playerStat, cpuStat })
     if (winner === "player") setPlayerScore((prev) => prev + 1)
     else setOpponentScore((prev) => prev + 1)
     setShowBattleResult(true)
@@ -90,7 +88,6 @@ export default function Page() {
     setShowBattleResult(false)
     setSelectedCard(null)
     setOpponentSelectedCard(null)
-    setLastBattleStats(null)
 
     if(battleWinner === "player") {
       const updatedOpponentPokemonData = opponentPokemonData.filter((p: any) => p.name !== opponentSelectedCard)
