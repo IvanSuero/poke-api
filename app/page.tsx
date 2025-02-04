@@ -33,19 +33,19 @@ export default function Page() {
 
   async function getOpponentPokemonData() {
     const randomNumbers = Array.from({ length: 3 }, () => Math.floor(Math.random() * 1025) + 1)
-    const data = await Promise.all(randomNumbers.map(getPokemonData))
+    const data: any = await Promise.all(randomNumbers.map(getPokemonData))
     setOpponentPokemonData(data)
   }
 
   async function initializeGame() {
     try {
       const randomNumbers = Array.from({ length: 3 }, () => Math.floor(Math.random() * 1025) + 1)
-      const data = await Promise.all(randomNumbers.map(getPokemonData))
+      const data: any = await Promise.all(randomNumbers.map(getPokemonData))
       setPokemonData(data)
       localStorage.setItem("pokemonData", JSON.stringify(data))
       await getOpponentPokemonData()
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "An error occurred")
+    } catch (e: any) {
+      setError("An error occurred")
     }
   }
 
@@ -60,7 +60,7 @@ export default function Page() {
         }
         initializeGame()
       } catch (e) { 
-        setError(e instanceof Error ? e.message : "An error occurred")
+        setError("An error occurred")
       }
     }
 
@@ -133,7 +133,7 @@ export default function Page() {
           </div>
 
           <div className="flex items-center justify-center gap-4 mt-8">
-            {pokemonData.map((data, index) => (
+            {pokemonData.map((data: any, index) => (
               <div key={index} className={`${selectedCard === data.name ? 'opacity-50' : 'hover:-translate-y-4 hover:cursor-pointer transition-all hover:shadow-xl'}`} onClick={() => selectCard(data.name)}>
                 <PokemonCard data={data} />
               </div>
@@ -150,7 +150,7 @@ export default function Page() {
         )}
 
         {showBattleResult && (
-          <BattleResult winner={battleWinner} playerScore={playerScore} cpuScore={opponentScore} playerStat={lastBattleStats?.playerStat} cpuStat={lastBattleStats?.cpuStat} onClose={handleBattleEnd} />
+          <BattleResult winner={battleWinner} playerScore={playerScore} cpuScore={opponentScore} onClose={handleBattleEnd} />
         )}
 
         {isGameOver && <GameOver playerScore={playerScore} cpuScore={opponentScore} onPlayAgain={handlePlayAgain} />}

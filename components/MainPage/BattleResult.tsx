@@ -2,7 +2,7 @@ import type React from "react"
 import { motion } from "framer-motion"
 
 interface BattleResultProps {
-  winner: "player" | "cpu"
+  winner: "player" | "cpu" | ""
   playerScore: number
   cpuScore: number
   onClose: () => void
