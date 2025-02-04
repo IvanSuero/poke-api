@@ -13,7 +13,7 @@ import GameOver from "../components/MainPage/GameOver"
 async function getPokemonData(number: number) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pokemon?number=${number}`)
 
-  if (!res.ok) throw new Error("Failed to fetch data") as Error
+  if (!res.ok) throw Error({ error: "Failed to fetch data" })
   return res.json()
 }
 
